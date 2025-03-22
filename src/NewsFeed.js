@@ -20,9 +20,12 @@ const NewsFeed = () => {
       if (userId.trim()) params.userId = userId;
       if (date) params.date = date;
 
-      const response = await axios.get("http://localhost:8080/api/news", {
-        params,
-      });
+      const response = await axios.get(
+        "https://newsaggregator-backend.onrender.com/api/news",
+        {
+          params,
+        }
+      );
       setArticles(response.data);
     } catch (err) {
       console.error("Error fetching news:", err);
