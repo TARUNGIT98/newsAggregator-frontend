@@ -7,6 +7,9 @@ module.exports = {
         teal: "#FBA002", // cool teal
         ivory: "#313B2F", // ivory white
       },
+      fontFamily: {
+        sansation: ["Sansation"],
+      },
     },
   },
   plugins: [],

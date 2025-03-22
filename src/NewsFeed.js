@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { GlobeAltIcon } from "@heroicons/react/24/solid";
 
 const NewsFeed = () => {
   const [userId, setUserId] = useState("");
@@ -21,10 +20,8 @@ const NewsFeed = () => {
       if (date) params.date = date;
 
       const response = await axios.get(
-        "https://newsaggregator-backend-ijc1.onrender.com/api/news",
-        {
-          params,
-        }
+        "https://newsaggregator-backend.onrender.com/api/news",
+        { params }
       );
       setArticles(response.data);
     } catch (err) {
@@ -36,84 +33,90 @@ const NewsFeed = () => {
   };
 
   return (
-    <div className="bg-ivory text-teal">
-      {/* Title with Icon */}
-      <div className="flex items-center space-x-2 mb-6">
-        <GlobeAltIcon className="h-8 w-8" />
-        <h2 className="flex text-3xl font-bold justify-center">
-          Personalized News Feed
-        </h2>
-      </div>
-
+    <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-6">
       {/* Form */}
-      <form
-        onSubmit={fetchNews}
-        className="md:flex md:items-end md:space-x-4 space-y-4 md:space-y-0 mb-6"
-      >
-        <div className="flex flex-col">
-          <label className="mb-1 font-semibold">User ID (Optional)</label>
-          <input
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            placeholder="Enter your user ID"
-            className="border border-teal rounded p-2"
-          />
+      <form onSubmit={fetchNews}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex flex-col">
+            <label className="mb-1 font-semibold">User ID (Optional)</label>
+            <input
+              type="text"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              placeholder="Enter your user ID"
+              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="mb-1 font-semibold">Category</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
+            >
+              <option value="business">Business</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="general">General</option>
+              <option value="health">Health</option>
+              <option value="science">Science</option>
+              <option value="sports">Sports</option>
+              <option value="technology">Technology</option>
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label className="mb-1 font-semibold">Date (Optional)</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
+            />
+          </div>
         </div>
-        <div className="flex flex-col">
-          <label className="mb-1 font-semibold">Category</label>
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="technology, health, etc."
-            className="border border-teal rounded p-2"
-          />
+
+        <div className="flex justify-center mt-6">
+          <button
+            type="submit"
+            className="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-600 transition-colors font-bold text-gray-900 shadow-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            Fetch News
+          </button>
         </div>
-        <div className="flex flex-col">
-          <label className="mb-1 font-semibold">Date (Optional)</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="border border-teal rounded p-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-teal text-ivory font-semibold py-2 px-4 rounded hover:bg-opacity-80 transition"
-        >
-          Fetch News
-        </button>
       </form>
 
-      {/* Status */}
-      {loading && <p>Loading news...</p>}
-      {error && (
-        <p className="text-red-600">Error fetching news: {error.message}</p>
-      )}
-      {articles.length === 0 && !loading && !error && <p>No articles found.</p>}
-
-      {/* Articles List */}
-      <ul className="space-y-4">
-        {articles.map((article, index) => (
-          <li
-            key={index}
-            className="bg-white rounded shadow p-4 transition hover:shadow-md hover:-translate-y-0.5"
-          >
-            <h3 className="text-xl font-semibold mb-1">{article.title}</h3>
-            <p className="mb-2">{article.summary || article.description}</p>
-            <a
-              href={article.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
+      {/* Status and Articles */}
+      <div className="mt-8">
+        {loading && <p className="text-center text-lg">Loading news...</p>}
+        {error && (
+          <p className="text-center text-red-400 text-lg">
+            Error fetching news: {error.message}
+          </p>
+        )}
+        {articles.length === 0 && !loading && !error && (
+          <p className="text-center text-gray-200">No articles found.</p>
+        )}
+        <ul className="mt-8 space-y-6">
+          {articles.map((article, index) => (
+            <li
+              key={index}
+              className="bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-xl hover:scale-[1.02] transform transition duration-300"
             >
-              Read more
-            </a>
-          </li>
-        ))}
-      </ul>
+              <h3 className="text-2xl font-bold mb-2">{article.title}</h3>
+              <p className="mb-4 text-gray-200">
+                {article.summary || article.description}
+              </p>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-300 hover:underline font-semibold"
+              >
+                Read more
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
