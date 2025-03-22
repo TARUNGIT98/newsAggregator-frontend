@@ -20,7 +20,7 @@ const NewsFeed = () => {
       if (date) params.date = date;
 
       const response = await axios.get(
-        "https://newsaggregator-backend-ijc1.onrender.com",
+        "https://newsaggregator-backend-ijc1.onrender.com/api/news",
         { params }
       );
       setArticles(response.data);
