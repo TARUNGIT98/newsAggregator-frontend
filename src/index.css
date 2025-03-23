@@ -2,16 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fallback Glassmorphism */
 .my-glass {
-    background-color: rgba(255, 255, 255, 0.1); /* Fallback semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
   }
   
-  /* Only apply blur if supported */
-  @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    .my-glass {
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
+  /* Safari-specific override: remove fallback entirely if you want to keep it uniform */
+  @media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+      .my-glass {
+        background-color: rgba(255, 255, 255, 0.1);
+        /* Keep the same partial transparency for Safari so it looks consistent */
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
     }
   }
+  
   
