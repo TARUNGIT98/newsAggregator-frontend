@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fallback Glassmorphism */
+.my-glass {
+    background-color: rgba(255, 255, 255, 0.1); /* Fallback semi-transparent background */
+  }
+  
+  /* Only apply blur if supported */
+  @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .my-glass {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+  }
+  

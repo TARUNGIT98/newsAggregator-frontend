@@ -33,7 +33,7 @@ const NewsFeed = () => {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-6">
+    <div className="my-glass rounded-xl shadow-2xl p-6">
       {/* Form */}
       <form onSubmit={fetchNews}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
