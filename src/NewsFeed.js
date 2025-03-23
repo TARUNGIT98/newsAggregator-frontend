@@ -4,8 +4,8 @@ import "./index.css";
 
 const NewsFeed = () => {
   const [userId, setUserId] = useState("");
-  const [category, setCategory] = useState("technology");
-  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
+  const [country, setCountry] = useState("");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,9 +16,8 @@ const NewsFeed = () => {
     setError(null);
 
     try {
-      const params = { category };
+      const params = { category, country };
       if (userId.trim()) params.userId = userId;
-      if (date) params.date = date;
 
       const response = await axios.get(
         "https://newsaggregator-backend-ijc1.onrender.com/api/news",
@@ -53,7 +52,7 @@ const NewsFeed = () => {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
+              className=" px-4 py-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
             >
               <option value="business">Business</option>
               <option value="entertainment">Entertainment</option>
@@ -65,13 +64,26 @@ const NewsFeed = () => {
             </select>
           </div>
           <div className="flex flex-col">
-            <label className="mb-1 font-semibold">Date (Optional)</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300"
-            />
+            <label className="mb-1 font-semibold">Region</label>
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300 cursor-pointer"
+              //   style={{
+              //     backgroundImage:
+              //       "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
+              //     backgroundRepeat: "no-repeat",
+              //     backgroundPosition: "right 0.5rem center",
+              //     backgroundSize: "1rem 1rem",
+              //   }}
+            >
+              <option value="us">United States</option>
+              <option value="gb">United Kingdom</option>
+              <option value="in">India</option>
+              <option value="ca">Canada</option>
+              <option value="au">Australia</option>
+              <option value="sg">Singapore</option>
+            </select>
           </div>
         </div>
 
