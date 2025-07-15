@@ -69,13 +69,6 @@ const NewsFeed = () => {
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               className="p-2 rounded border border-white/20 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-300 cursor-pointer"
-              //   style={{
-              //     backgroundImage:
-              //       "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
-              //     backgroundRepeat: "no-repeat",
-              //     backgroundPosition: "right 0.5rem center",
-              //     backgroundSize: "1rem 1rem",
-              //   }}
             >
               <option value="us">United States</option>
               <option value="gb">United Kingdom</option>
